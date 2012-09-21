@@ -14,6 +14,4 @@ requirejs.config({
 
 requirejs([ 'gnosys' ], function(gnosys) {
 	module.exports = gnosys;
-}); 
-
-//test sq
+}); //test
