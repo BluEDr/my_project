@@ -1,0 +1,20 @@
+{
+    "name" : "gnosysjs",
+    "version" : "0.0.1",
+    "description" : "gnosysjs is an open source library for teaching data structures and algorithms",
+    "keywords" : ["algorithms", "data structures", "animations"],
+    "main" : "../index",
+    "engines" : { "node" : ">=0.4" },
+    "maintainers" : [
+        { "name" : "Christodoulos Fragoudakis", "email" : "chfrag@central.ntua.gr" }
+    ],
+    "bugs" : {
+        "mail" : "chfrag@central.ntua.gr",
+        "url" : "https://github.com/chfrag/gnosysjs/issues"
+    },
+    "licenses" : [],
+    "repositories" : [],
+    "dependencies" : {
+        "requirejs" : ">=1.0.0"
+    }
+}

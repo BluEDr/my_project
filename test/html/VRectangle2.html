@@ -1,0 +1,43 @@
+<html>
+<head>
+
+<style>
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+#myCanvas {
+	border: 1px solid #9C9898;
+}
+</style>
+
+</head>
+
+<script src="../../build/gnosys.js" type="text/javascript"> </script>
+
+<script>
+		window.onload = function() {
+			
+
+			var canvas = document.getElementById("myCanvas");		
+			
+			var ctx = canvas.getContext("2d");
+			
+			var corner = new gnosys.geometry.Point2(210, 250);
+			var width = 150;
+			var height = 200;
+
+			var rectangle = new gnosys.geometry.Rectangle2(corner, width, height);
+			var vrectangle = new gnosys.visual.VRectangle2(rectangle);
+
+			vrectangle.draw(ctx);
+			alert("pause");
+			vrectangle.setColor('yellow');
+		};
+    </script>
+
+<body>
+	<canvas id="myCanvas" width="800" height="600"> </canvas>
+</body>
+</html>

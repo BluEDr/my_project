@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+  <head>  
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+    <script type="text/javascript" src="../build/gnosys.js"></script>
+
+    <script type="text/javascript">  
+      $(document).ready(function() {
+        test("a basic test example", function() {
+          ok(true, "this test is fine");
+          var value = "hello";
+          equal(value, "hello", "We expect value to be hello");
+        });
+
+        test("Testing the difference of two Point2 objects", function() {
+          P = gnosys.geometry.Point2;
+          V = gnosys.geometry.Vec2;
+          var a = new P(1,1);
+          var b = new P(3,2);
+          var c = a.sub(b);
+          var d = new V(-2,-1);
+          equal(c.toString(), d.toString(), "We expect the difference of two points to be a Vector");
+        });
+
+        test("Testing BST", function() {
+          T = gnosys.datastructures.BST;
+          var t = new T()
+          t.insert(7);
+          t.insert(9);
+          t.insert(10);
+          t.insert(8);
+          t.insert(6);
+          t.insert(2);
+          t.insert(3);
+          t.insert(1);
+          t.insert(4);
+          t.insert(3);
+          t.insert(2);
+          t.insert(1);
+          t.insert(4);
+          t.insert(5);
+          t.insert(7);
+          t.insert(9);
+          t.insert(10);
+          t.insert(8);
+          t.insert(6);
+          t.insert(2);
+          t.insert(3);
+          t.insert(1);
+          t.insert(4);
+          t.insert(3);
+          t.insert(2);
+          t.insert(1);
+          t.insert(4);
+          t.insert(5);
+          t.print();
+          var i = t.toString();
+          equal(i, "1,2,3,6,7,8,9,10", "Traversing the tree inorder yields a sorted sequence");
+        });
+
+      });
+
+    </script>  
+  </head>  
+  <body>  
+    <h1 id="qunit-header">GNOSYS :: BST unit tests</h1>  
+    <h2 id="qunit-banner"></h2>  
+    <h2 id="qunit-userAgent"></h2>  
+    <ol id="qunit-tests">  
+    </ol>  
+  </body>  
+</html>  

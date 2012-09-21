@@ -1,0 +1,381 @@
+<html>
+
+	<style type="text/css">
+		canvas {
+			position: absolute;
+			margin-left: 0px;
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		var GlobalCatalog = function() {
+			this.points = Array();
+			this.circles = Array();
+		}
+
+		GlobalCatalog.prototype = {
+			push: function(obj) {
+				if (obj instanceof Point) this.points.push(obj);
+				if (obj instanceof Circle) this.circles.push(obj);
+			}
+		}
+		
+		function Shape(shape, x, y, w, h, stroke, fill) {
+			if (shape) {
+				switch(shape) {
+					case "circle": break;
+					case "rectangle": break;
+					case "triangle" : break;
+					default: { 
+						alert("Unknown Shape!");
+						return undefined;
+					}
+				}
+				this.shape = shape;
+				this.x = x || 0;
+				this.y = y || 0;
+				this.w = w || 1;
+				this.h = h || 1;
+				this.stroke = stroke || "black";
+				this.fill = fill || "white";
+			} else {
+				alert("Undefined Shape!");
+				return undefined;
+			}
+		}
+		
+		Shape.prototype = {
+			draw: function(ctx) {
+				ctx.strokeStyle = this.stroke;
+				ctx.fillStyle = this.fill;
+				switch(this.shape) {
+					case "rectangle": {
+						ctx.beginPath();
+						ctx.strokeRect(this.x, this.y, this.w, this.h);
+						ctx.closePath();
+						break;
+					} case "circle": {
+						//alert("in circle");
+						ctx.beginPath();
+						ctx.arc(this.x, this.y, this.w/2, 0, 2 * Math.PI, false);
+						ctx.closePath();
+						ctx.stroke();
+						break;
+					} case "triangle": {
+						var ax = this.x - this.h/2;
+						var ay = this.y + this.h/2;
+						var bx = this.x + this.h/2;
+						var by = this.y + this.h/2;
+						var cx = this.x;
+						var cy = this.y - this.h/2;
+						ctx.beginPath();
+						ctx.moveTo(ax, ay);
+						ctx.lineTo(bx, by);
+						ctx.lineTo(cx, cy);
+						ctx.lineTo(ax, ay);
+						ctx.closePath();
+						ctx.stroke();
+					} // triangle
+				} // switch
+			}, // draw
+			
+			contains: function(mx, my) {
+				var shape = this.shape;
+				var x = this.x, y = this.y, w = this.w, h = this.h;
+				if (shape === "rectangle") {
+					return (x<=mx) && (x+w>=mx) && (y<=my) && (y+h>=my);
+				} else if ((shape === "triangle") || (shape === "circle")) {
+					return (x-w/2<=mx) && (x+w/2>=mx) && (y-h/2<=my) && (y+h/2>=my);
+				}
+			}
+		} 
+		
+		function CanvasState(canvas) {
+			// setup
+			this.canvas = canvas;
+			this.width = canvas.width;
+			this.height = canvas.height;
+			this.ctx = canvas.getContext("2d");
+
+			// according to simonsarris this fixes mouse coordinate problems
+			var stylePaddingLeft, stylePaddingTop;
+			var styleBorderLeft, styleBorderTop;
+  			if (document.defaultView && document.defaultView.getComputedStyle) {
+    			this.stylePaddingLeft = parseInt(
+    				document.defaultView.getComputedStyle(canvas, null)
+    					['paddingLeft'], 10
+    				) || 0;
+    			this.stylePaddingTop = parseInt(
+    				document.defaultView.getComputedStyle(canvas, null)
+    				['paddingTop'], 10
+    				) || 0;
+    			this.styleBorderLeft = parseInt(
+    				document.defaultView.getComputedStyle(canvas, null)
+    				['borderLeftWidth'], 10
+    				) || 0;
+    			this.styleBorderTop = parseInt(
+    				document.defaultView.getComputedStyle(canvas, null)
+    				['borderTopWidth'], 10
+    				) || 0;
+  			}
+			var html = document.body.parentNode;
+			this.htmlTop = html.offsetTop;
+			this.htmlLeft = html.offsetLeft;
+
+			// keep track of state
+
+			this.valid = false;
+			this.shapes = [];
+			this.dragging = false;
+			this.selection = null;
+			this.dragoffx = 0;
+			this.dragoffy = 0;
+
+			var myState = this;
+
+			//fixes a problem where double clicking ...
+			canvas.addEventListener('selectstart', function(e) {
+				e.preventDefault();
+				return false;
+			}, false);
+
+			canvas.addEventListener('mousedown', function(e) {
+				var mouse = myState.getMouse(e);
+				var mx = mouse.x;
+				var my = mouse.y;
+				var shapes = myState.shapes;
+				var l = shapes.length;
+				for (var i = l-1; i >= 0; i--) {
+					if (shapes[i].contains(mx, my)) {
+						var mySel = shapes[i];
+						// move here smoothly???
+						myState.dragoffx = mx - mySel.x;
+						myState.dragoffy = my - mySel.y;
+						myState.dragging = true;
+						myState.selection = mySel;
+						myState.valid = false;
+						return;
+					}
+				}
+				// nothing selected so deselect any previously selected object
+				if (myState.selection) {
+					myState.selection = null;
+					myState.valid = false; // clears the old selection border
+				}
+			}, true);
+
+			canvas.addEventListener('mousemove', function(e) {
+				if (myState.dragging) {
+					var mouse = myState.getMouse(e);
+					// drag from where we clicked ???
+					myState.selection.x = mouse.x - myState.dragoffx;
+					myState.selection.y = mouse.y - myState.dragoffy;
+					myState.valid = false;
+				}
+			}, true);
+
+			canvas.addEventListener('mouseup', function(e) {
+				myState.dragging = false;
+			}, true);
+
+			this.selectionWidth = 2;
+			this.selectionColor = 'red';
+			this.normalWidth = 1;
+			this.interval = 30;
+			setInterval(function() { myState.draw(); }, myState.interval);
+		}
+
+		CanvasState.prototype = {
+			addShape: function(shape) {
+				this.shapes.push(shape);
+				this.valid = false;
+			},
+
+			clear: function() {
+				this.ctx.clearRect(0,0,this.width,this.height);
+			},
+
+			draw: function() {
+				if (!this.valid) {
+					var ctx = this.ctx;
+					var shapes = this.shapes;
+					this.clear();
+
+					// stuff drawn in the background all the time go here
+
+					var l = shapes.length;
+					for (var i = 0; i < l; i++) {
+						var shape = shapes[i];
+						// skip elements off screen ???
+						//alert("lala");
+						ctx.lineWidth = this.normalWidth;
+						shapes[i].draw(ctx);
+					}
+
+					//draw selection
+					if (this.selection != null) {
+						ctx.strokeStyle = this.selectionColor;
+						ctx.lineWidth = this.selectionWidth;
+						var mySel = this.selection;
+						if ((shape.shape === "circle") || (shape.shape == "triangle")) {
+							ctx.strokeRect(mySel.x - mySel.w/2, mySel.y - mySel.h/2, mySel.w, mySel.h);
+						} else {
+							ctx.strokeRect(mySel.x, mySel.y, mySel.w, mySel.h);
+						}
+					}
+					
+					// stuff drown on top all the time go here
+
+					this.valid = true;
+				}
+			},
+
+			getMouse: function(e) {
+				var element = this.canvas, offsetX = 0, offsetY = 0, mx, my;
+
+				// Compute the total offset
+				if (element.offsetParent !== undefined) {
+					do {
+						offsetX += element.offsetLeft;
+						offsetY += element.offsetTop;
+					} while ((element = element.offsetParent));
+				}
+
+				// Add padding and border style widths to offset
+				// Also add the <html> offsets in case there's a position:fixed 
+				offsetX += this.stylePaddingLeft + this.styleBorderLeft 
+					+ this.htmlLeft;
+				offsetY += this.stylePaddingTop + this.styleBorderTop 
+					+ this.htmlTop;
+				mx = e.pageX - offsetX;
+				my = e.pageY - offsetY;
+				return {x: mx, y: my};
+			}
+		}
+
+
+		var Point = function() {
+			if (arguments[0] && arguments[1]) {
+				this.x = arguments[0];
+				this.y = arguments[1];
+			} else alert("Invalid Point!")
+		}
+				
+		var Circle = function(center, radius) {
+			this.canvas = this.getCanvas();
+			this.context = this.getContext();
+			if (center instanceof Point && radius) {
+				this.x = center.x;
+				this.y = center.y;
+				this.radius = radius;
+			}
+			this.draw();
+		}
+
+		Circle.prototype = {
+			getCanvas: function() {
+				if (this.canvas) return this.canvas;
+				else {
+					this.canvas = document.createElement("canvas");
+					return this.canvas;
+				}
+			},
+			
+			getContext: function() {
+				if (this.context) return this.context;
+				else {
+					this.context = this.canvas.getContext("2d");
+					return this.context;
+				}
+			},
+
+			draw: function() {
+				this.context.beginPath();
+				this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+				this.context.closePath();
+				this.context.stroke();
+				g.push(this);
+			},
+
+			setLineWidth: function(width) {
+				if (width) {
+					this.context.lineWidth = width;
+				} else {
+					this.context.lineWidth = 1;
+				}
+				this.context.stroke();
+			},
+
+			boundingBox: function() {
+				var x = this.x;
+				var y = this.y;
+				var radius = this.radius;
+				var lineWidth = this.context.lineWidth;
+				var wx = 2 * (radius + lineWidth);
+				return {x:  x - radius - lineWidth, y : y - radius - lineWidth, width: wx, height: wx};
+			},
+			
+			clear: function() {
+				var bb = this.boundingBox();
+				this.context.clearRect(bb.x,bb.y,bb.width,bb.height);
+			},
+
+			setRadius: function(radius) {
+				this.context.save();
+				this.clear();
+				this.context.restore();
+				this.radius = radius;
+				this.draw();
+			},
+
+			setFillStyle: function(color) {
+				if (color) {
+					this.context.fillStyle = color;
+				} else {
+					this.context.fillStyle = "white";
+				}
+				this.context.fill();
+			},
+
+			setStrokeStyle: function(color) {
+				if (color) {
+					this.context.strokeStyle = color;
+				} else {
+					this.context.strokeStyle = "black";
+				}
+				this.context.stroke();
+			}
+		}
+
+		var g = new GlobalCatalog();
+
+		window.onload = function(){
+			
+			//var a = new Point(20,20);
+			//var b = new Point(100,100);
+			//var c1 = new Circle(a, 10);
+			//var c2 = new Circle(b, 20);
+			//for (var i=0; i<g.circles.length; i++) {
+			//	document.body.appendChild(g.circles[i].canvas);
+			//}
+			//document.body.appendChild(c1.canvas);
+			//document.body.appendChild(c2.canvas);
+			//alert('pause');
+			//c1.setFillStyle("red");
+			//c2.setStrokeStyle("green");
+			//alert('pause');
+			//c2.setLineWidth(5);
+			//alert('pause');
+			//c2.setLineWidth(15);
+			//c2.setRadius(30);
+			//c1.setFillStyle("yellow");
+			lala = document.createElement("canvas");
+			document.body.appendChild(lala);
+			aa = new CanvasState(lala);
+			aa.addShape(new Shape("circle",20,20,20,20));
+		}
+	</script>
+	<body>
+	</body>
+</html>

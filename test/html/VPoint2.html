@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<!-- 
+<style type="text/css">
+canvas {
+	border: solid 2px black;
+	display: block;
+}-->
+</style>
+<script src="../build/gnosys.js" type="text/javascript"></script>
+</head>
+<body>
+
+	<script type="text/javascript">
+	
+	
+		
+
+		var input = new gnosys.visual.Input2;
+		input.getVPoints2();
+
+		function show(results) {
+			l = results.length;
+			document.getElementById('lala').innerHTML = "";
+			for ( var i = 0; i < l; i++) {
+				document.getElementById('lala').innerHTML += i + ": "
+						+ results[i] + "<br>";
+			}
+		}
+	</script>
+	 
+	<input type="button" value="Done" onclick="show(input.points);" />
+	<div id="lala"></div>
+	
+	
+</body>
+</html>

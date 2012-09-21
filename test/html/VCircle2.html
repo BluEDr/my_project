@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+			}
+			#myCanvas {
+				border: 1px solid #9C9898;
+			}
+		</style>
+    </head>
+    
+    <script src="../../build/gnosys.js" type="text/javascript"></script>
+
+    <script>
+		window.onload = function() {
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			
+			var center = new gnosys.geometry.Point2(200, 250);
+			var radius = 50;
+			var circle = new gnosys.geometry.Circle2(center, radius);
+			var vcircle = new gnosys.visual.VCircle2(circle, "red", 8);
+			
+			vcircle.draw(ctx);
+			alert("pause");
+			vcircle.setColor('yellow');
+		}
+    
+    </script>
+    
+    <body>
+		<canvas id="myCanvas" width="800" height="600"></canvas>
+    </body>
+</html>

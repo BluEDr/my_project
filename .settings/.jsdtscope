@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="codemirror/mode/vbscript/|codemirror/mode/php/|test/html/visual/js/|codemirror/mode/smarty/|codemirror/mode/rst/|lib/gnosys/datastructures/|codemirror/mode/erlang/|codemirror/mode/ocaml/|codemirror/mode/lua/|codemirror/mode/smalltalk/|codemirror/mode/velocity/|test/js/|codemirror/mode/haskell/|codemirror/mode/tiki/|codemirror/lib/|codemirror/lib/util/|codemirror/mode/stex/|codemirror/mode/shell/|lib/gnosys/visual/|codemirror/mode/yaml/|codemirror/mode/javascript/|codemirror/test/lint/|codemirror/mode/groovy/|codemirror/mode/haxe/|lib/gnosys/visual/old.latest/|lib/gnosys/|codemirror/mode/xml/|codemirror/mode/htmlembedded/|codemirror/mode/ruby/|codemirror/mode/rust/|codemirror/mode/scheme/|codemirror/mode/perl/|codemirror/mode/htmlmixed/|codemirror/mode/verilog/|codemirror/mode/rpm/changes/|bin/utils/|codemirror/mode/pig/|codemirror/mode/plsql/|codemirror/mode/clike/|codemirror/mode/commonlisp/|codemirror/mode/css/|codemirror/mode/xquery/|codemirror/mode/sparql/|codemirror/mode/pascal/|build/|codemirror/mode/clojure/|codemirror/mode/properties/|codemirror/mode/go/|codemirror/mode/less/|bin/|codemirror/mode/jinja2/|codemirror/mode/mysql/|codemirror/mode/ecl/|lib/|codemirror/mode/gfm/|codemirror/mode/markdown/|lib/gnosys/visual/old/|codemirror/mode/r/|codemirror/mode/xquery/test/|lib/gnosys/geometry/|codemirror/keymap/|codemirror/mode/vb/|codemirror/mode/ntriples/|codemirror/mode/tiddlywiki/|test/html/jslibs/|codemirror/test/|codemirror/mode/rpm/spec/|codemirror/mode/python/|codemirror/mode/diff/|codemirror/mode/sieve/|codemirror/mode/coffeescript/" kind="src" path=""/>
+	<classpathentry excluding="utils/" kind="src" path="bin"/>
+	<classpathentry kind="src" path="bin/utils"/>
+	<classpathentry kind="src" path="build"/>
+	<classpathentry kind="src" path="codemirror/keymap"/>
+	<classpathentry excluding="util/" kind="src" path="codemirror/lib"/>
+	<classpathentry kind="src" path="codemirror/lib/util"/>
+	<classpathentry kind="src" path="codemirror/mode/clike"/>
+	<classpathentry kind="src" path="codemirror/mode/clojure"/>
+	<classpathentry kind="src" path="codemirror/mode/coffeescript"/>
+	<classpathentry kind="src" path="codemirror/mode/commonlisp"/>
+	<classpathentry kind="src" path="codemirror/mode/css"/>
+	<classpathentry kind="src" path="codemirror/mode/diff"/>
+	<classpathentry kind="src" path="codemirror/mode/ecl"/>
+	<classpathentry kind="src" path="codemirror/mode/erlang"/>
+	<classpathentry kind="src" path="codemirror/mode/gfm"/>
+	<classpathentry kind="src" path="codemirror/mode/go"/>
+	<classpathentry kind="src" path="codemirror/mode/groovy"/>
+	<classpathentry kind="src" path="codemirror/mode/haskell"/>
+	<classpathentry kind="src" path="codemirror/mode/haxe"/>
+	<classpathentry kind="src" path="codemirror/mode/htmlembedded"/>
+	<classpathentry kind="src" path="codemirror/mode/htmlmixed"/>
+	<classpathentry kind="src" path="codemirror/mode/javascript"/>
+	<classpathentry kind="src" path="codemirror/mode/jinja2"/>
+	<classpathentry kind="src" path="codemirror/mode/less"/>
+	<classpathentry kind="src" path="codemirror/mode/lua"/>
+	<classpathentry kind="src" path="codemirror/mode/markdown"/>
+	<classpathentry kind="src" path="codemirror/mode/mysql"/>
+	<classpathentry kind="src" path="codemirror/mode/ntriples"/>
+	<classpathentry kind="src" path="codemirror/mode/ocaml"/>
+	<classpathentry kind="src" path="codemirror/mode/pascal"/>
+	<classpathentry kind="src" path="codemirror/mode/perl"/>
+	<classpathentry kind="src" path="codemirror/mode/php"/>
+	<classpathentry kind="src" path="codemirror/mode/pig"/>
+	<classpathentry kind="src" path="codemirror/mode/plsql"/>
+	<classpathentry kind="src" path="codemirror/mode/properties"/>
+	<classpathentry kind="src" path="codemirror/mode/python"/>
+	<classpathentry kind="src" path="codemirror/mode/r"/>
+	<classpathentry kind="src" path="codemirror/mode/rpm/changes"/>
+	<classpathentry kind="src" path="codemirror/mode/rpm/spec"/>
+	<classpathentry kind="src" path="codemirror/mode/rst"/>
+	<classpathentry kind="src" path="codemirror/mode/ruby"/>
+	<classpathentry kind="src" path="codemirror/mode/rust"/>
+	<classpathentry kind="src" path="codemirror/mode/scheme"/>
+	<classpathentry kind="src" path="codemirror/mode/shell"/>
+	<classpathentry kind="src" path="codemirror/mode/sieve"/>
+	<classpathentry kind="src" path="codemirror/mode/smalltalk"/>
+	<classpathentry kind="src" path="codemirror/mode/smarty"/>
+	<classpathentry kind="src" path="codemirror/mode/sparql"/>
+	<classpathentry kind="src" path="codemirror/mode/stex"/>
+	<classpathentry kind="src" path="codemirror/mode/tiddlywiki"/>
+	<classpathentry kind="src" path="codemirror/mode/tiki"/>
+	<classpathentry kind="src" path="codemirror/mode/vb"/>
+	<classpathentry kind="src" path="codemirror/mode/vbscript"/>
+	<classpathentry kind="src" path="codemirror/mode/velocity"/>
+	<classpathentry kind="src" path="codemirror/mode/verilog"/>
+	<classpathentry kind="src" path="codemirror/mode/xml"/>
+	<classpathentry excluding="test/" kind="src" path="codemirror/mode/xquery"/>
+	<classpathentry kind="src" path="codemirror/mode/xquery/test"/>
+	<classpathentry kind="src" path="codemirror/mode/yaml"/>
+	<classpathentry excluding="lint/" kind="src" path="codemirror/test"/>
+	<classpathentry kind="src" path="codemirror/test/lint"/>
+	<classpathentry excluding="gnosys/datastructures/|gnosys/visual/|gnosys/visual/old.latest/|gnosys/|gnosys/visual/old/|gnosys/geometry/" kind="src" path="lib"/>
+	<classpathentry excluding="datastructures/|visual/|visual/old.latest/|visual/old/|geometry/" kind="src" path="lib/gnosys"/>
+	<classpathentry kind="src" path="lib/gnosys/datastructures"/>
+	<classpathentry kind="src" path="lib/gnosys/geometry"/>
+	<classpathentry excluding="old.latest/|old/" kind="src" path="lib/gnosys/visual"/>
+	<classpathentry kind="src" path="lib/gnosys/visual/old"/>
+	<classpathentry kind="src" path="lib/gnosys/visual/old.latest"/>
+	<classpathentry kind="src" path="test/html/jslibs"/>
+	<classpathentry kind="src" path="test/html/visual/js"/>
+	<classpathentry kind="src" path="test/js"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
